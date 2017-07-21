@@ -1,0 +1,4 @@
+training_variant <- read.csv("I:/Cancer/training_variants/training_variants_word.csv")
+merged_training_df <-merge(cancer1,training_variant,by="Id_No")
+trial <- as.character(merged_training_df$Gene)
+Gene_factors <- count(merged_training_df, "Gene")
