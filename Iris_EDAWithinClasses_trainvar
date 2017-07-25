@@ -1,0 +1,300 @@
+#Kaggle Personalized Medicine Competition R code 
+#Part 2. Exploratory Data Analysis in training variant csv file 
+
+##---metadata within each class begins--##
+##Class1
+trainc1_ord<-order(trainvar_c1$Gene) 
+ordered_trainvarc1<-trainvar_c1[trainc1_ord,] #order by gene
+ordered_trainvarc1$Class<-as.factor(ordered_trainvarc1$Class)
+
+c1gene_count<-data.frame()
+for (i in unique(ordered_trainvarc1$Gene)){
+  gene.count.c1<-length(ordered_trainvarc1$ID[ordered_trainvarc1$Gene==i])
+  c1gene_count<-rbind(c1gene_count, c(gene.count.c1))
+}
+gene.name.c1<-unique(ordered_trainvarc1$Gene) #unique genes in Class 1 is 142
+c1gene_count<-cbind(gene.name.c1,c1gene_count)
+names(c1gene_count)<-c("Gene","Count")
+write.csv(c1gene_count, file="C:/Users/Iris/Documents/Kaggle/GeneCount_Class1.csv")
+#metadata for numbers of unique genes within class 1
+
+c1var_count<-data.frame()
+for (i in unique(ordered_trainvarc1$Variation)){
+  var.count.c1<-length(ordered_trainvarc1$ID[ordered_trainvarc1$Variation==i])
+  c1var_count<-rbind(c1var_count, c(var.count.c1))
+}
+var.name.c1<-unique(ordered_trainvarc1$Variation) #unique variations in Class 1 is 423
+c1var_count<-cbind(var.name.c1,c1var_count)
+names(c1var_count)<-c("Variations","Count")
+write.csv(c1var_count, file="C:/Users/Iris/Documents/Kaggle/VarCount_Class1.csv")
+#metadata for numbers of unique variations within class 1
+
+library(plyr)
+pair_freq_c1<-count(ordered_trainvarc1[,-c(1,4)])
+which(pair_freq_c1$freq>1) #integer(0)
+write.csv(pair_freq_c1, file="C:/Users/Iris/Documents/Kaggle/PairFrequency_Class1.csv")
+#every pair is unique, total unique pairs = 568
+
+
+##Class2
+trainc2_ord<-order(trainvar_c2$Gene) 
+ordered_trainvarc2<-trainvar_c2[trainc2_ord,] #order by gene
+ordered_trainvarc2$Class<-as.factor(ordered_trainvarc2$Class)
+
+c2gene_count<-data.frame()
+for (i in unique(ordered_trainvarc2$Gene)){
+  gene.count.c2<-length(ordered_trainvarc2$ID[ordered_trainvarc2$Gene==i])
+  c2gene_count<-rbind(c2gene_count, c(gene.count.c2))
+}
+gene.name.c2<-unique(ordered_trainvarc2$Gene) #unique genes in Class 2 is 96
+c2gene_count<-cbind(gene.name.c2,c2gene_count)
+names(c2gene_count)<-c("Gene","Count")
+write.csv(c2gene_count, file="C:/Users/Iris/Documents/Kaggle/GeneCount_Class2.csv")
+#metadata for numbers of unique genes within class 2
+
+c2var_count<-data.frame()
+for (i in unique(ordered_trainvarc2$Variation)){
+  var.count.c2<-length(ordered_trainvarc2$ID[ordered_trainvarc2$Variation==i])
+  c2var_count<-rbind(c2var_count, c(var.count.c2))
+}
+var.name.c2<-unique(ordered_trainvarc2$Variation) #unique variations in Class 2 is 399
+c2var_count<-cbind(var.name.c2,c2var_count)
+names(c2var_count)<-c("Variation","Count")
+write.csv(c2var_count, file="C:/Users/Iris/Documents/Kaggle/VarCount_Class2.csv")
+#metadata for numbers of unique variations within class 2
+
+pair_freq_c2<-count(ordered_trainvarc2[,-c(1,4)])
+which(pair_freq_c2$freq>1) #integer(0)
+write.csv(pair_freq_c2, file="C:/Users/Iris/Documents/Kaggle/PairFrequency_Class2.csv")
+#every pair is unique, total unique pairs = 452
+
+
+##Class3
+trainc3_ord<-order(trainvar_c3$Gene) 
+ordered_trainvarc3<-trainvar_c3[trainc3_ord,] #order by gene
+ordered_trainvarc3$Class<-as.factor(ordered_trainvarc3$Class)
+
+c3gene_count<-data.frame()
+for (i in unique(ordered_trainvarc3$Gene)){
+  gene.count.c3<-length(ordered_trainvarc3$ID[ordered_trainvarc3$Gene==i])
+  c3gene_count<-rbind(c3gene_count, c(gene.count.c3))
+}
+gene.name.c3<-unique(ordered_trainvarc3$Gene) #unique genes in Class 3 is 26
+c3gene_count<-cbind(gene.name.c3,c3gene_count)
+names(c3gene_count)<-c("Gene","Count")
+write.csv(c3gene_count, file="C:/Users/Iris/Documents/Kaggle/GeneCount_Class3.csv")
+#metadata for numbers of unique genes within class 3
+
+c3var_count<-data.frame()
+for (i in unique(ordered_trainvarc3$Variation)){
+  var.count.c3<-length(ordered_trainvarc3$ID[ordered_trainvarc3$Variation==i])
+  c3var_count<-rbind(c3var_count, c(var.count.c3))
+}
+var.name.c3<-unique(ordered_trainvarc3$Variation) #unique variations in Class 3 is 89
+c3var_count<-cbind(var.name.c3,c3var_count)
+names(c3var_count)<-c("Variation","Count")
+write.csv(c3var_count, file="C:/Users/Iris/Documents/Kaggle/VarCount_Class3.csv")
+#metadata for numbers of unique variations within class 3
+
+pair_freq_c3<-count(ordered_trainvarc3[,-c(1,4)])
+which(pair_freq_c3$freq>1) #integer(0)
+write.csv(pair_freq_c3, file="C:/Users/Iris/Documents/Kaggle/PairFrequency_Class3.csv")
+#every pair is unique, total unique pairs = 89
+
+
+##Class4
+trainc4_ord<-order(trainvar_c4$Gene) 
+ordered_trainvarc4<-trainvar_c4[trainc4_ord,] #order by gene
+ordered_trainvarc4$Class<-as.factor(ordered_trainvarc4$Class)
+
+c4gene_count<-data.frame()
+for (i in unique(ordered_trainvarc4$Gene)){
+  gene.count.c4<-length(ordered_trainvarc4$ID[ordered_trainvarc4$Gene==i])
+  c4gene_count<-rbind(c4gene_count, c(gene.count.c4))
+}
+gene.name.c4<-unique(ordered_trainvarc4$Gene) #unique genes in Class 4 is 92
+c4gene_count<-cbind(gene.name.c4,c4gene_count)
+names(c4gene_count)<-c("Gene","Count")
+write.csv(c4gene_count, file="C:/Users/Iris/Documents/Kaggle/GeneCount_Class4.csv")
+#metadata for numbers of unique genes within class 4
+
+c4var_count<-data.frame()
+for (i in unique(ordered_trainvarc4$Variation)){
+  var.count.c4<-length(ordered_trainvarc4$ID[ordered_trainvarc4$Variation==i])
+  c4var_count<-rbind(c4var_count, c(var.count.c4))
+}
+var.name.c4<-unique(ordered_trainvarc4$Variation) #unique variations in Class 4 is 669
+c4var_count<-cbind(var.name.c4,c4var_count)
+names(c4var_count)<-c("Variation","Count")
+write.csv(c4var_count, file="C:/Users/Iris/Documents/Kaggle/VarCount_Class4.csv")
+#metadata for numbers of unique variations within class 4
+
+pair_freq_c4<-count(ordered_trainvarc4[,-c(1,4)])
+which(pair_freq_c4$freq>1) #integer(0)
+write.csv(pair_freq_c4, file="C:/Users/Iris/Documents/Kaggle/PairFrequency_Class4.csv")
+#every pair is unique, total unique pairs = 686
+
+
+##Class5
+trainc5_ord<-order(trainvar_c5$Gene) 
+ordered_trainvarc5<-trainvar_c5[trainc5_ord,] #order by gene
+ordered_trainvarc5$Class<-as.factor(ordered_trainvarc5$Class)
+
+c5gene_count<-data.frame()
+for (i in unique(ordered_trainvarc5$Gene)){
+  gene.count.c5<-length(ordered_trainvarc5$ID[ordered_trainvarc5$Gene==i])
+  c5gene_count<-rbind(c5gene_count, c(gene.count.c5))
+}
+gene.name.c5<-unique(ordered_trainvarc5$Gene) #unique genes in Class 5 is 48
+c5gene_count<-cbind(gene.name.c5,c5gene_count)
+names(c5gene_count)<-c("Gene","Count")
+write.csv(c5gene_count, file="C:/Users/Iris/Documents/Kaggle/GeneCount_Class5.csv")
+#metadata for numbers of unique genes within class 5
+
+c5var_count<-data.frame()
+for (i in unique(ordered_trainvarc5$Variation)){
+  var.count.c5<-length(ordered_trainvarc5$ID[ordered_trainvarc5$Variation==i])
+  c5var_count<-rbind(c5var_count, c(var.count.c5))
+}
+var.name.c5<-unique(ordered_trainvarc5$Variation) #unique variations in Class 5 is 242
+c5var_count<-cbind(var.name.c5,c5var_count)
+names(c5var_count)<-c("Variation","Count")
+write.csv(c5var_count, file="C:/Users/Iris/Documents/Kaggle/VarCount_Class5.csv")
+#metadata for numbers of unique variations within class 5
+
+pair_freq_c5<-count(ordered_trainvarc5[,-c(1,4)])
+which(pair_freq_c5$freq>1) #integer(0)
+write.csv(pair_freq_c5, file="C:/Users/Iris/Documents/Kaggle/PairFrequency_Class5.csv")
+#every pair is unique, total unique pairs = 242
+
+
+##Class6
+trainc6_ord<-order(trainvar_c6$Gene) 
+ordered_trainvarc6<-trainvar_c6[trainc6_ord,] #order by gene
+ordered_trainvarc6$Class<-as.factor(ordered_trainvarc6$Class)
+
+c6gene_count<-data.frame()
+for (i in unique(ordered_trainvarc6$Gene)){
+  gene.count.c6<-length(ordered_trainvarc6$ID[ordered_trainvarc6$Gene==i])
+  c6gene_count<-rbind(c6gene_count, c(gene.count.c6))
+}
+gene.name.c6<-unique(ordered_trainvarc6$Gene) #unique genes in Class 6 is 56
+c6gene_count<-cbind(gene.name.c6,c6gene_count)
+names(c6gene_count)<-c("Gene","Count")
+write.csv(c6gene_count, file="C:/Users/Iris/Documents/Kaggle/GeneCount_Class6.csv")
+#metadata for numbers of unique genes within class 6
+
+c6var_count<-data.frame()
+for (i in unique(ordered_trainvarc6$Variation)){
+  var.count.c6<-length(ordered_trainvarc6$ID[ordered_trainvarc6$Variation==i])
+  c6var_count<-rbind(c6var_count, c(var.count.c6))
+}
+var.name.c6<-unique(ordered_trainvarc6$Variation) #unique variations in Class 6 is 265
+c6var_count<-cbind(var.name.c6,c6var_count)
+names(c6var_count)<-c("Variation","Count")
+write.csv(c6var_count, file="C:/Users/Iris/Documents/Kaggle/VarCount_Class6.csv")
+#metadata for numbers of unique variations within class 6
+
+pair_freq_c6<-count(ordered_trainvarc6[,-c(1,4)])
+which(pair_freq_c6$freq>1) #integer(0)
+write.csv(pair_freq_c6, file="C:/Users/Iris/Documents/Kaggle/PairFrequency_Class6.csv")
+#every pair is unique, total unique pairs = 275
+
+
+##Class7
+trainc7_ord<-order(trainvar_c7$Gene) 
+ordered_trainvarc7<-trainvar_c7[trainc7_ord,] #order by gene
+ordered_trainvarc7$Class<-as.factor(ordered_trainvarc7$Class)
+
+c7gene_count<-data.frame()
+for (i in unique(ordered_trainvarc7$Gene)){
+  gene.count.c7<-length(ordered_trainvarc7$ID[ordered_trainvarc7$Gene==i])
+  c7gene_count<-rbind(c7gene_count, c(gene.count.c7))
+}
+gene.name.c7<-unique(ordered_trainvarc7$Gene) #unique genes in Class 7 is 108
+c7gene_count<-cbind(gene.name.c7,c7gene_count)
+names(c7gene_count)<-c("Gene","Count")
+write.csv(c7gene_count, file="C:/Users/Iris/Documents/Kaggle/GeneCount_Class7.csv")
+#metadata for numbers of unique genes within class 7
+
+c7var_count<-data.frame()
+for (i in unique(ordered_trainvarc7$Variation)){
+  var.count.c7<-length(ordered_trainvarc7$ID[ordered_trainvarc7$Variation==i])
+  c7var_count<-rbind(c7var_count, c(var.count.c7))
+}
+var.name.c7<-unique(ordered_trainvarc7$Variation) #unique variations in Class 7 is 889
+c7var_count<-cbind(var.name.c7,c7var_count)
+names(c7var_count)<-c("Variation","Count")
+write.csv(c7var_count, file="C:/Users/Iris/Documents/Kaggle/VarCount_Class7.csv")
+#metadata for numbers of unique variations within class 7
+
+pair_freq_c7<-count(ordered_trainvarc7[,-c(1,4)])
+which(pair_freq_c7$freq>1) #integer(0)
+write.csv(pair_freq_c7, file="C:/Users/Iris/Documents/Kaggle/PairFrequency_Class7.csv")
+#every pair is unique, total unique pairs = 953
+
+
+##Class8
+trainc8_ord<-order(trainvar_c8$Gene) 
+ordered_trainvarc8<-trainvar_c8[trainc8_ord,] #order by gene
+ordered_trainvarc8$Class<-as.factor(ordered_trainvarc8$Class)
+
+c8gene_count<-data.frame()
+for (i in unique(ordered_trainvarc8$Gene)){
+  gene.count.c8<-length(ordered_trainvarc8$ID[ordered_trainvarc8$Gene==i])
+  c8gene_count<-rbind(c8gene_count, c(gene.count.c8))
+}
+gene.name.c8<-unique(ordered_trainvarc8$Gene) #unique genes in Class 8 is 12
+c8gene_count<-cbind(gene.name.c8,c8gene_count)
+names(c8gene_count)<-c("Gene","Count")
+write.csv(c8gene_count, file="C:/Users/Iris/Documents/Kaggle/GeneCount_Class8.csv")
+#metadata for numbers of unique genes within class 8
+
+c8var_count<-data.frame()
+for (i in unique(ordered_trainvarc8$Variation)){
+  var.count.c8<-length(ordered_trainvarc8$ID[ordered_trainvarc8$Variation==i])
+  c8var_count<-rbind(c8var_count, c(var.count.c8))
+}
+var.name.c8<-unique(ordered_trainvarc8$Variation) #unique variations in Class 8 is 142
+c8var_count<-cbind(var.name.c8,c8var_count)
+names(c8var_count)<-c("Variation","Count")
+write.csv(c8var_count, file="C:/Users/Iris/Documents/Kaggle/VarCount_Class8.csv")
+#metadata for numbers of unique variations within class 8
+
+pair_freq_c8<-count(ordered_trainvarc8[,-c(1,4)])
+which(pair_freq_c8$freq>1) #integer(0)
+write.csv(pair_freq_c8, file="C:/Users/Iris/Documents/Kaggle/PairFrequency_Class8.csv")
+#every pair is unique, total unique pairs = 19
+
+
+##Class9
+trainc9_ord<-order(trainvar_c9$Gene) 
+ordered_trainvarc9<-trainvar_c9[trainc9_ord,] #order by gene
+ordered_trainvarc9$Class<-as.factor(ordered_trainvarc9$Class)
+
+c9gene_count<-data.frame()
+for (i in unique(ordered_trainvarc9$Gene)){
+  gene.count.c9<-length(ordered_trainvarc9$ID[ordered_trainvarc9$Gene==i])
+  c9gene_count<-rbind(c9gene_count, c(gene.count.c9))
+}
+gene.name.c9<-unique(ordered_trainvarc9$Gene) #unique genes in Class 9 is 10
+c9gene_count<-cbind(gene.name.c9,c9gene_count)
+names(c9gene_count)<-c("Gene","Count")
+write.csv(c9gene_count, file="C:/Users/Iris/Documents/Kaggle/GeneCount_Class9.csv")
+#metadata for numbers of unique genes within class 9
+
+c9var_count<-data.frame()
+for (i in unique(ordered_trainvarc9$Variation)){
+  var.count.c9<-length(ordered_trainvarc9$ID[ordered_trainvarc9$Variation==i])
+  c9var_count<-rbind(c9var_count, c(var.count.c9))
+}
+var.name.c9<-unique(ordered_trainvarc9$Variation) #unique variations in Class 9 is 142
+c9var_count<-cbind(var.name.c9,c9var_count)
+names(c9var_count)<-c("Variation","Count")
+write.csv(c9var_count, file="C:/Users/Iris/Documents/Kaggle/VarCount_Class9.csv")
+#metadata for numbers of unique variations within class 9
+
+pair_freq_c9<-count(ordered_trainvarc9[,-c(1,4)])
+which(pair_freq_c9$freq>1) #integer(0)
+write.csv(pair_freq_c9, file="C:/Users/Iris/Documents/Kaggle/PairFrequency_Class9.csv")
+#every pair is unique, total unique pairs = 37
