@@ -3,6 +3,10 @@ import regex as re
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import string
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+from collections import Counter
 
 #-----importing files----#
 scriptdir = os.path.dirname(os.path.abspath(__file__))
@@ -47,22 +51,28 @@ trainmer_new.Class = trainmer_new.Class.astype('category')
 #----exploratory analysis----#
 
 ##Class frequency
-class_freq = trainmer_new.groupby('Class')['Gene'].count()
-class_freq.plot(kind='bar', use_index=True, title='Class frequency')
-plt.xlabel('Class')
-plt.xticklabels(rotation=0)
-plt.ylabel('Frequency')
-plt.show()
+#class_freq = trainmer_new.groupby('Class')['Gene'].count()
+#fig1 = plt.figure(1)
+#classfreq = fig1.add_plot(221)
+#classfreq = class_freq.plot(kind='bar', use_index=True, title='Class frequency')
+#classfreq.set_xlabel('Class')
+#for tick in classfreq.get_xticklabels():
+#    tick.set_rotation(90)
+#classfreq.set_ylabel('Frequency')
 
 #Text frequency
-text_freq = trainmer_new.groupby('Text')['Class'].count()
-#print(text_freq.sort_values(ascending=False))
+#text_freq = trainmer_new.groupby('Text')['Class'].count()
+#textfreq = text_freq.plot(kind='bar', use_index=True, title='Text frequency')
+#textfreq.set_xlabel('Class')
+#for tick in classfreq.get_xticklabels():
+#    tick.set_rotation(90)
+#classfreq.set_ylabel('Frequency')
 
 #Gene frequency
-gene_freq = trainmer_new.groupby('Gene')['Text'].count()
+#gene_freq = trainmer_new.groupby('Gene')['Text'].count()
 #print(gene_freq.sort_values(ascending=False))
 
-var_freq = trainmer_new.groupby('Variation')['Text'].count()
+#var_freq = trainmer_new.groupby('Variation')['Text'].count()
 #print(var_freq.sort_values(ascending=False))
 
 #print(trainmer_new[['Gene', 'Variation']].drop_duplicates()) #check if gene-var pairs are unique
@@ -70,3 +80,26 @@ trainmer_multiind = trainmer_new.set_index(['Gene', 'Variation']) #indexed by un
 #print(trainmer_multiind.info()) #memory usage reduced from 256KB+ to 77KB+
 
 #----preprocessing of text files----#
+
+###Try first without removing Materials and Methods (ver A.)
+
+##No spaces (ver A.1)
+miTrainmer_A1 = pd.DataFrame(trainmer_multiind['Class'])
+nospace_tokens = pd.Series([re.findall(r'\S+', text) for text in trainmer_multiind['Text']]) #nospace_tokens.values return series of lists with "list()"; the part inside is just a list of list
+miTrainmer_A1['NoSpacesTokens'] = nospace_tokens.values
+#miTrainmer_A1.to_csv('NoSpacesTokens.csv', index_label=['Gene', 'Variation'], sep='\t')
+
+##Best combo (ver A.2)
+miTrainmer_A2 = pd.DataFrame(trainmer_multiind['Class'])
+
+#for text in trainmer_multiind['Text']:
+train_word = [[word.strip(string.punctuation) for word in text.split(" ")] for text in trainmer_multiind['Text']] #strip off standalone punctuations
+no_stops_nopunc = [[t for t in text if t not in stopwords.words('english')] for text in train_word]
+#wordnet_lemmatizer = WordNetLemmatizer()
+#lemmatized_nostops_nopunc = [[wordnet_lemmatizer.lemmatize(t) for t in subtext] for subtext in no_stops_nopunc]
+
+print(type(no_stops_nopunc), no_stops_nopunc[:1])
+#best_combo = pd.Series(lemmatized_nostops_nopunc) #best_combo.values return multiple lists with just "[]"; if previous code is list of lists, then make this a list of lists before transforming to series
+#    print(type(best_combo))
+#miTrainmer_A2['BestComboTokens'] = best_combo.values
+#miTrainmer_A2.to_csv('BestComboTokens.csv', index_label=['Gene', 'Variation'], sep='\t')
